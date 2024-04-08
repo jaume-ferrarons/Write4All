@@ -1,14 +1,15 @@
 Provide tips to improve the following text regarding inclusivity. Use the following classification:
- - "gender-exclusive": use of terms that exclude non-binary or gender-diverse individuals
+ - "gender-exclusive": use of terms that exclude non-binary or gender-diverse individuals.
  - "stereotyping": Making assumptions based on characteristics like race, gender, or disability.
  - "ableism": Stigmatizing disabilities or mental health conditions.
  - "religion/culture": Using language that offends specific religious or cultural groups.
  - "body-stigma": Perpetuating negative stereotypes about body size and appearance.
  - "microagressions": Unintentional comments that marginalize or offend others.
+ - "others": Any other type of language that is not inclusive.
 
 You must:
  - provide a single fix for each issue.
- - the term should be as short as possible while including all the text that has to be replaced.
+ - the correction must be as short as possible while including all the text that has to be replaced.
  - ensure that replacing the term by the fix does not change the meaning of the text and lead to a grammatically correct sentence.
  - briefly reason why the term is problematic.
 
