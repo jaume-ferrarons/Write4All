@@ -115,7 +115,7 @@ def apply_review(text: str, review: list[dict]) -> str:
             )
             last_end = end
     output += text[last_end:]
-    return f"<pre>{output}</pre>"
+    return f"<pre style='white-space: pre-wrap;'>{output}</pre>"
 
 
 def review_table_summary(review: list[dict]) -> str:
