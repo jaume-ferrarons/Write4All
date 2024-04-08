@@ -1,4 +1,4 @@
-# ✅ Write4All - Create the right for everyone
+# ✅ Write4All - Create the right content for everyone
 
 Use ✅ Write4All to review your content and make sure it is respectful and inclusive. Use the results under taking into account the context and decide if you finally need to make proposed changes.
 
