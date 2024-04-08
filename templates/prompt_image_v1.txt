@@ -1,0 +1,4 @@
+Analyze the following image in terms of inclusivity.
+
+Provide a brief description of the image and explain how it is inclusive or exclusive. Then if it's exclusive provide a table with to columns: "problem" and "solution". In the problem column, list the issues with the image. In the solution column, provide a solution to the problem.
+Otherwise, if the image is inclusive, provide a brief explanation of why it is inclusive.

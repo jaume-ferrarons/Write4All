@@ -1,0 +1,58 @@
+Provide tips to improve the following text regarding inclusivity. Use the following classification:
+ - "gender-exclusive": use of terms that exclude non-binary or gender-diverse individuals
+ - "stereotyping": Making assumptions based on characteristics like race, gender, or disability.
+ - "ableism": Stigmatizing disabilities or mental health conditions.
+ - "religion/culture": Using language that offends specific religious or cultural groups.
+ - "body-stigma": Perpetuating negative stereotypes about body size and appearance.
+ - "microagressions": Unintentional comments that marginalize or offend others.
+
+You must:
+ - provide a single fix for each issue.
+ - the term should be as short as possible while including all the text that has to be replaced.
+ - ensure that replacing the term by the fix does not change the meaning of the text and lead to a grammatically correct sentence.
+ - briefly reason why the term is problematic.
+
+Input:
+```
+The policeman stopped the car
+```
+
+Output:
+```json
+[
+  {{
+    "term": "policeman",
+    "start_char": 4,
+    "end_char": 13,
+    "type": "gender-exclusive",
+    "fix": "police officer",
+    "reason": "police officer is gender neutral and not assuming the gender of the subject"
+  }}
+]
+```
+
+Input:
+```
+People who are overweight eat too much.
+```
+
+Output:
+```json
+[
+  {{
+    "term": "People who are overweight eat too much.",
+    "start_char": 0,
+    "end_char": 39,
+    "type": "body-stigma",
+    "fix": "Some people that eat too much are overweight.",
+    "reason": "Overweight can be a medical condition and not always related to eating to much"
+  }}
+]
+```
+
+Input:
+```
+{text}
+```
+
+Output:

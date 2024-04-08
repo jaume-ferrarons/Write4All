@@ -1,0 +1,8 @@
+Analyze the following image in terms of inclusivity.
+
+You must:
+- Provide a brief description of the image and explain why it is inclusive or exclusive.
+- When the picture is exclusive make sure to provide a table with to columns: "problem" and "solution". In the problem column, list the issues with the image. In the solution column, provide a solution to the problem.
+- When the image is inclusive, provide a brief explanation of why it is inclusive.
+- In case the picture contains people, consider inclusivity in the following dimensions: gender, ethnicity, age, ability, etc.
+- Only talk about people when there is people in the picture.
