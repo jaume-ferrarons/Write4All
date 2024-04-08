@@ -35,19 +35,27 @@ Output:
 
 Input:
 ```
-People who are overweight eat too much.
+I met with the chairman of the board during Christmas.
 ```
 
 Output:
 ```json
 [
   {{
-    "term": "People who are overweight eat too much.",
-    "start_char": 0,
-    "end_char": 39,
-    "type": "body-stigma",
-    "fix": "Some people that eat too much are overweight.",
-    "reason": "Overweight can be a medical condition and not always related to eating to much"
+    "term": "chairman",
+    "start_char": 12,
+    "end_char": 19,
+    "type": "gender-exclusive",
+    "fix": "company leader",
+    "reason": "chairman is gendered, company leader is neutral"
+  }},
+  {{
+    "term": "Christmas",
+    "start_char": 26,
+    "end_char": 34,
+    "type": "religion/culture",
+    "fix": "holiday season",
+    "reason": "Not everyone celebrates Christmas"
   }}
 ]
 ```
