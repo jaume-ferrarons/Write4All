@@ -12,6 +12,7 @@ You must:
  - the correction must be as short as possible while including all the text that has to be replaced.
  - ensure that replacing the term by the fix does not change the meaning of the text and lead to a grammatically correct sentence.
  - briefly reason why the term is problematic.
+ - provide a fix for all the issues present in the text.
 
 Input:
 ```
