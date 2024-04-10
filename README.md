@@ -10,9 +10,13 @@ pinned: true
 license: mit 
 ---
 
-# ✅ Write4All
+# ✅Write4All
 
-In a world where diversity and inclusivity are essential, crafting content that resonates with everyone can be a challenge. With ✅ Write4All I hope making the world more inclusive, one word and image at a time.
+In a world where diversity and inclusivity are essential, crafting content that resonates with everyone can be a challenge. With ✅Write4All I hope making the world more inclusive, one word and image at a time.
+
+See it in action in:
+- HuggingFace Spaces: [✅Write4All](https://huggingface.co/spaces/Jaume/Write4All).
+- Examples notebook: [✅Write4All Examples](./notebooks/examples.ipynb)
 
 ## Requirements
 

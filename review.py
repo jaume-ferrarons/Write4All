@@ -46,13 +46,15 @@ gemini_1_0_vision = genai.GenerativeModel(
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
+
 @cache
 def get_file(relative_path: str) -> str:
     current_path = os.path.dirname(os.path.abspath(__file__))
     full_path = os.path.join(current_path, relative_path)
     with open(full_path) as f:
         return f.read()
-    
+
+
 def fix_json(json_str: str) -> str:
     template = get_file("templates/prompt_json_fix.txt")
     prompt = template.format(json=json_str)
@@ -90,9 +92,14 @@ def apply_review(text: str, review: list[dict]) -> str:
             start = starts[0]
             end = start + len(entity["term"])
             output += text[last_end:start]
-            output += get_file("templates/correction.html").format(
-                term=text[start:end], fix=entity["fix"], kind=entity["type"]
-            )
+            if len(entity["fix"]) > 0:
+                output += get_file("templates/correction.html").format(
+                    term=text[start:end], fix=entity["fix"], kind=entity["type"]
+                )
+            else:
+                output += get_file("templates/deletion.html").format(
+                    term=text[start:end], kind=entity["type"]
+                )
             last_end = end
     output += text[last_end:]
     return f"<pre style='white-space: pre-wrap;'>{output}</pre>"
@@ -105,6 +112,7 @@ def review_table_summary(review: list[dict]) -> str:
     table += "</table>"
     return table
 
+
 def review_text(text: str, text_model: genai.GenerativeModel) -> list[dict]:
     template = get_file("templates/prompt_v1.txt")
     try:
@@ -115,6 +123,7 @@ def review_text(text: str, text_model: genai.GenerativeModel) -> list[dict]:
             f"Error while getting answer from the model, make sure the content isn't offensive or dangerous."
         )
     return get_json_content(response)
+
 
 def process_text(model: str, text: str) -> str:
     text_model = gemini_1_0 if model == "Gemini 1.0 Pro" else gemini_1_5
