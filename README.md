@@ -10,16 +10,32 @@ pinned: true
 license: mit 
 ---
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+# ✅ Write4All
 
+In a world where diversity and inclusivity are essential, crafting content that resonates with everyone can be a challenge. With ✅ Write4All I hope making the world more inclusive, one word and image at a time.
+
+## Requirements
+
+- Python 3.10+
+- Poetry
+- Gemini API key
+
+
+## Installation
+
+```bash
+pip install poetry
+```
 
 ## Running the app
 
 ```bash
-poetry install
+export GEMINI_API_KEY=your_api_key_here
 poetry run gradio app.py
 ```
 
+## Development
+Huggingface spaces require the `requirements.txt` file to be updated with the latest dependencies.
 Update the requirements.txt file with the following command:
 ```bash
 poetry export --without-hashes --without dev -f requirements.txt -o requirements.txt
