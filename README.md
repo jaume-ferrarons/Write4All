@@ -16,7 +16,7 @@ In a world where diversity and inclusivity are essential, crafting content that 
 
 See it in action in:
 - HuggingFace Spaces: [✅Write4All](https://huggingface.co/spaces/Jaume/Write4All).
-- Examples notebook: [✅Write4All Examples](./notebooks/examples.ipynb)
+- Examples notebook: [✅Write4All Examples](./notebooks/examples.ipynb).
 
 ## Requirements
 
@@ -39,8 +39,8 @@ poetry run gradio app.py
 ```
 
 ## Development
-Huggingface spaces require the `requirements.txt` file to be updated with the latest dependencies.
-Update the requirements.txt file with the following command:
+HuggingFace Spaces require the `requirements.txt` file to be updated with the latest dependencies.
+Update the `requirements.txt` file with the following command:
 ```bash
 poetry export --without-hashes --without dev -f requirements.txt -o requirements.txt
 ```
