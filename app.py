@@ -59,8 +59,8 @@ image_ui = gr.Interface(
     examples=[
         ["Gemini 1.0 Pro Vision", "static/images/CEOs.png"],
         ["Gemini 1.0 Pro Vision", "static/images/meat_grid.png"],
-        ["Gemini 1.0 Pro Vision", "static/images/elephants.png"],
-        ["Gemini 1.0 Pro Vision", "static/images/crosses.png"],
+        ["Gemini 1.0 Pro Vision", "static/images/elephants.jpg"],
+        ["Gemini 1.0 Pro Vision", "static/images/crosses.jpg"],
     ],
 )
 
