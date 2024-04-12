@@ -28,7 +28,7 @@ See it in action in:
 ## Installation
 
 ```bash
-pip install poetry
+poetry install
 ```
 
 ## Running the app
