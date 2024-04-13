@@ -56,10 +56,13 @@ def get_file(relative_path: str) -> str:
 
 
 def fix_json(json_str: str) -> str:
-    template = get_file("templates/prompt_json_fix.txt")
-    prompt = template.format(json=json_str)
-    response = gemini_1_0.generate_content(prompt).text
-    return response.split("```json")[1].split("```")[0]
+    try:
+        template = get_file("templates/prompt_json_fix.txt")
+        prompt = template.format(json=json_str)
+        response = gemini_1_5.generate_content(prompt).text
+        return response.split("```json")[1].split("```")[0]
+    except:
+        return []
 
 
 def get_json_content(response: str) -> dict:
