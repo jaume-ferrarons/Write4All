@@ -95,6 +95,8 @@ def apply_review(text: str, review: list[dict]) -> str:
             start = starts[0]
             end = start + len(entity["term"])
             output += text[last_end:start]
+            if "fix" not in entity:
+                entity["fix"] = ""
             if len(entity["fix"]) > 0:
                 output += get_file("templates/correction.html").format(
                     term=text[start:end], fix=entity["fix"], kind=entity["type"]
