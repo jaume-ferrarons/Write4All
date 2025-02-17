@@ -4,7 +4,7 @@ emoji: ✍️✅
 colorFrom: pink
 colorTo: green
 sdk: gradio
-sdk_version: 4.25.0
+sdk_version: 5.16.0
 app_file: app.py
 pinned: true
 license: mit 
@@ -20,27 +20,26 @@ See it in action in:
 
 ## Requirements
 
-- Python 3.10+
-- Poetry
+- Python 3.12+
+- uv
 - Gemini API key
 
 
 ## Installation
 
 ```bash
-poetry install
+uv sync --frozen
 ```
 
 ## Running the app
 
 ```bash
 export GEMINI_API_KEY=your_api_key_here
-poetry run gradio app.py
+uv run gradio app.py
 ```
 
 ## Development
 HuggingFace Spaces require the `requirements.txt` file to be updated with the latest dependencies.
 Update the `requirements.txt` file with the following command:
 ```bash
-poetry export --without-hashes --without dev -f requirements.txt -o requirements.txt
-```
+uv export --format requirements-txt > requirements.txt```

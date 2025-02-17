@@ -3,6 +3,7 @@ import gradio as gr
 
 from review import process_text, process_image, get_file
 
+
 def format_entities(text: str, review: list[dict]) -> list[dict]:
     entities = []
     for entity in review:
@@ -27,20 +28,20 @@ text_ui = gr.Interface(
     fn=process_text,
     inputs=[
         gr.Dropdown(
-            ["Gemini 1.0 Pro", "Gemini 1.5 Pro (latest)"],
+            ["Gemini 2.0 Flash", "Gemini 1.5 Pro"],
             label="Model",
-            value="Gemini 1.0 Pro",
+            value="Gemini 2.0 Flash",
             scale=1,
         ),
         gr.Textbox(lines=5, label="Text", scale=4),
     ],
     outputs=[gr.HTML(label="Revision")],
     examples=[
-        ["Gemini 1.0 Pro", "The whitelist is incomplete."],
-        ["Gemini 1.0 Pro", "There's not enough manpower to deliver the project"],
-        ["Gemini 1.0 Pro", "This has never happened in the history of mankind!"],
-        ["Gemini 1.0 Pro", "El hombre desciende del mono."],
-        ["Gemini 1.0 Pro", "Els homes són animals"],
+        ["Gemini 2.0 Flash", "The whitelist is incomplete."],
+        ["Gemini 2.0 Flash", "There's not enough manpower to deliver the project"],
+        ["Gemini 2.0 Flash", "This has never happened in the history of mankind!"],
+        ["Gemini 2.0 Flash", "El hombre desciende del mono."],
+        ["Gemini 2.0 Flash", "Els homes són animals"],
     ],
 )
 
@@ -48,19 +49,19 @@ image_ui = gr.Interface(
     fn=process_image,
     inputs=[
         gr.Dropdown(
-            ["Gemini 1.0 Pro Vision", "Gemini 1.5 Pro (latest)"],
+            ["Gemini 2.0 Flash"],
             label="Model",
-            value="Gemini 1.0 Pro Vision",
+            value="Gemini 2.0 Flash",
             scale=1,
         ),
         gr.Image(sources=["upload", "clipboard"], type="pil"),
     ],
     outputs=["markdown"],
     examples=[
-        ["Gemini 1.0 Pro Vision", "static/images/CEOs.png"],
-        ["Gemini 1.0 Pro Vision", "static/images/meat_grid.png"],
-        ["Gemini 1.0 Pro Vision", "static/images/elephants.jpg"],
-        ["Gemini 1.0 Pro Vision", "static/images/crosses.jpg"],
+        ["Gemini 2.0 Flash", "static/images/CEOs.png"],
+        ["Gemini 2.0 Flash", "static/images/meat_grid.png"],
+        ["Gemini 2.0 Flash", "static/images/elephants.jpg"],
+        ["Gemini 2.0 Flash", "static/images/crosses.jpg"],
     ],
 )
 

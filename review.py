@@ -1,9 +1,12 @@
+import base64
+import io
 import json
 import os
 import re
 from functools import cache
 
-import google.generativeai as genai
+from litellm import completion
+from pydantic import BaseModel
 
 try:
     from dotenv import load_dotenv
@@ -19,6 +22,19 @@ generation_config = {
     "max_output_tokens": 2048,
 }
 
+
+class TextEdits(BaseModel):
+    term: str
+    start_char: int
+    end_char: int
+    type: str
+    fix: str
+    reason: str
+
+class SuggestedEdits(BaseModel):
+    edits: list[TextEdits]
+
+
 safety_settings = [
     {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
     {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
@@ -26,25 +42,20 @@ safety_settings = [
     {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_ONLY_HIGH"},
 ]
 
+gemini_models = [
+    {
+        "name": "Gemini 2.0 Flash",
+        "model": "gemini/gemini-2.0-flash",
+        "image_support": True,
+    },
+    {
+        "name": "Gemini 1.5 Pro",
+        "model": "gemini/gemini-1.5-pro",
+        "image_support": False,
+    },
+]
 
-gemini_1_0 = genai.GenerativeModel(
-    model_name="gemini-1.0-pro",
-    generation_config=generation_config,
-    safety_settings=safety_settings,
-)
-gemini_1_5 = genai.GenerativeModel(
-    model_name="gemini-1.5-pro-latest",
-    generation_config=generation_config,
-    safety_settings=safety_settings,
-)
-gemini_1_0_vision = genai.GenerativeModel(
-    "gemini-pro-vision",
-    generation_config=generation_config,
-    safety_settings=safety_settings,
-)
-
-
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+models_dict = {model["name"]: model for model in gemini_models}
 
 
 @cache
@@ -53,29 +64,6 @@ def get_file(relative_path: str) -> str:
     full_path = os.path.join(current_path, relative_path)
     with open(full_path) as f:
         return f.read()
-
-
-def fix_json(json_str: str) -> str:
-    try:
-        template = get_file("templates/prompt_json_fix.txt")
-        prompt = template.format(json=json_str)
-        response = gemini_1_5.generate_content(prompt).text
-        return response.split("```json")[1].split("```")[0]
-    except:
-        return []
-
-
-def get_json_content(response: str) -> dict:
-    if "```json" not in response:
-        return []
-    raw_json = response.split("```json")[1].split("```")[0]
-    try:
-        return json.loads(raw_json)
-    except json.JSONDecodeError as e:
-        print(e)
-        new_json = fix_json(raw_json)
-        print(new_json)
-        return json.loads(new_json)
 
 
 def html_title(title: str) -> str:
@@ -118,21 +106,24 @@ def review_table_summary(review: list[dict]) -> str:
     return table
 
 
-def review_text(text: str, text_model: genai.GenerativeModel) -> list[dict]:
+def review_text(model: str, text: str) -> list[dict]:
     template = get_file("templates/prompt_v1.txt")
     try:
-        response = text_model.generate_content(template.format(text=text)).text
-    except ValueError as e:
+        response = completion(
+            model=model,
+            messages=[{"role": "user", "content": template.format(text=text)}],
+            response_format=SuggestedEdits,
+        )
+    except Exception as e:
         print(e)
         raise ValueError(
             f"Error while getting answer from the model, make sure the content isn't offensive or dangerous."
         )
-    return get_json_content(response)
+    return json.loads(response.choices[0].message.content)["edits"]
 
 
 def process_text(model: str, text: str) -> str:
-    text_model = gemini_1_0 if model == "Gemini 1.0 Pro" else gemini_1_5
-    review = review_text(text, text_model)
+    review = review_text(models_dict[model]["model"], text)
     if len(review) == 0:
         return html_title("No issues found in the text 🎉🎉🎉")
     return (
@@ -142,18 +133,31 @@ def process_text(model: str, text: str) -> str:
         + review_table_summary(review)
     )
 
+def image_to_base64_string(img):
+    buffered = io.BytesIO()
+    img.save(buffered, format="JPEG")
+    return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
-def review_image(image, vision_model: genai.GenerativeModel) -> list[dict]:
+def process_image(model: str, image) -> list[dict]:
     prompt = get_file("templates/prompt_image_v1.txt")
     try:
-        response = vision_model.generate_content([prompt, image]).text
+        response = completion(
+            model=models_dict[model]["model"],
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": prompt},
+                        {
+                            "type": "image_url",
+                            "image_url": "data:image/jpeg;base64," + image_to_base64_string(image),
+                        },
+                    ],
+                }
+            ],
+        )
     except ValueError as e:
         print(e)
         message = f"Error while getting answer from the model, make sure the content isn't offensive or dangerous. Please try again or change the prompt. {str(e)}"
         raise ValueError(message)
-    return response
-
-
-def process_image(model: str, image):
-    vision_model = gemini_1_0_vision if model == "Gemini 1.0 Pro Vision" else gemini_1_5
-    return review_image(image, vision_model)
+    return response.choices[0].message.content
