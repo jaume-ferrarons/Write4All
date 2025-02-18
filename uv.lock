@@ -410,7 +410,7 @@ wheels = [
 
 [[package]]
 name = "gradio"
-version = "5.16.0"
+version = "5.16.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiofiles" },
@@ -443,7 +443,7 @@ dependencies = [
     { name = "uvicorn", marker = "sys_platform != 'emscripten'" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f6/78/ab8ba3ccc03f83027380ca13d0d741844eb9a6f7ad02a835c353949223e8/gradio-5.16.0-py3-none-any.whl", hash = "sha256:0cae0fb5a261981d6ba2d1b24732d86bb0daa9596f9aa9a98123aaf45f98dfa6", size = 62200494 },
+    { url = "https://files.pythonhosted.org/packages/b6/2e/3dddfdec4144ef1c2203e3ce3a2112720e757996995cdd579aaedc0876bf/gradio-5.16.1-py3-none-any.whl", hash = "sha256:a49f194ca314a09e4f7655a8fbcf8efae961a2bbf37877afc546fb506027f4dd", size = 62213705 },
 ]
 
 [[package]]
@@ -1767,13 +1767,13 @@ name = "write4all"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "gradio" },
     { name = "litellm" },
     { name = "pydantic" },
 ]
 
 [package.dev-dependencies]
 dev = [
+    { name = "gradio" },
     { name = "ipykernel" },
     { name = "ipywidgets" },
     { name = "python-dotenv" },
@@ -1782,13 +1782,13 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "gradio", specifier = ">=5.16.0" },
     { name = "litellm", specifier = ">=1.61.6" },
     { name = "pydantic", specifier = ">=2.10.6" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "gradio", specifier = ">=5.16.1" },
     { name = "ipykernel", specifier = ">=6.29.5" },
     { name = "ipywidgets", specifier = ">=8.1.5" },
     { name = "python-dotenv", specifier = ">=1.0.1" },

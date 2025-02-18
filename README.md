@@ -42,4 +42,5 @@ uv run gradio app.py
 HuggingFace Spaces require the `requirements.txt` file to be updated with the latest dependencies.
 Update the `requirements.txt` file with the following command:
 ```bash
-uv export --format requirements-txt > requirements.txt```
+uv export --no-dev --format requirements-txt > requirements.txt
+```

@@ -1,2 +1,0 @@
-cargo
-python3-dev
